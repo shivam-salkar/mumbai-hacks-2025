@@ -1,9 +1,23 @@
 import { useEffect, useState } from "react";
 import { Stethoscope, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function SplitSection({ isActive, sectionRef }) {
   const [hovered, setHovered] = useState(null);
+  const { signInWithGoogle } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogin = async (role) => {
+    const { success, role: userRole } = await signInWithGoogle(role);
+    if (success) {
+      if (userRole === "practitioner") {
+        navigate("/dashboard_practitioner");
+      } else {
+        navigate("/dashboard_patient");
+      }
+    }
+  };
 
   const buildClasses = (side) => {
     const isCurrent = hovered === side;
@@ -36,7 +50,8 @@ export default function SplitSection({ isActive, sectionRef }) {
           "left"
         )} w-full bg-[#1a2f1a]`}
         onMouseEnter={() => setHovered("left")}
-        onMouseLeave={() => setHovered(null)}>
+        onMouseLeave={() => setHovered(null)}
+        onClick={() => handleLogin("practitioner")}>
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620733723572-11c52f7c2d82?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay md:hover:scale-110 transition-transform duration-[2s]" />
         <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/60 to-transparent" />
 
@@ -58,16 +73,14 @@ export default function SplitSection({ isActive, sectionRef }) {
             Join our network of expert healers.
           </p>
 
-          <Link to="/dashboard_practitioner">
-            <button
-              className={`mt-4 md:mt-6 px-6 py-2 border border-white/30 rounded-full text-white text-sm md:text-base hover:bg-white hover:text-green-900 transition-all duration-500 ${
-                hovered === "left"
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4"
-              }`}>
-              Login Portal
-            </button>
-          </Link>
+          <button
+            className={`mt-4 md:mt-6 px-6 py-2 border border-white/30 rounded-full text-white text-sm md:text-base hover:bg-white hover:text-green-900 transition-all duration-500 ${
+              hovered === "left"
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
+            }`}>
+            Login Portal
+          </button>
         </div>
       </article>
 
@@ -76,7 +89,8 @@ export default function SplitSection({ isActive, sectionRef }) {
           "right"
         )} w-full bg-[#2c3e2e]`}
         onMouseEnter={() => setHovered("right")}
-        onMouseLeave={() => setHovered(null)}>
+        onMouseLeave={() => setHovered(null)}
+        onClick={() => handleLogin("patient")}>
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544367563-12123d8965cd?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay md:hover:scale-110 transition-transform duration-[2s]" />
         <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-l from-black/60 to-transparent" />
 
@@ -98,16 +112,14 @@ export default function SplitSection({ isActive, sectionRef }) {
             Begin your journey to wellness.
           </p>
 
-          <Link to="/dashboard_patient">
-            <button
-              className={`mt-4 md:mt-6 px-6 py-2 border border-white/30 rounded-full text-white text-sm md:text-base hover:bg-white hover:text-green-900 transition-all duration-500 ${
-                hovered === "right"
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4"
-              }`}>
-              Book Session
-            </button>
-          </Link>
+          <button
+            className={`mt-4 md:mt-6 px-6 py-2 border border-white/30 rounded-full text-white text-sm md:text-base hover:bg-white hover:text-green-900 transition-all duration-500 ${
+              hovered === "right"
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
+            }`}>
+            Book Session
+          </button>
         </div>
       </article>
 

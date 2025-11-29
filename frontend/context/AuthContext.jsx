@@ -1,115 +1,84 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import {
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, googleProvider, db } from "../services/firebase";
 
-/**
- * Auth Context - manages patient session state
- * TODO: Integrate with actual authentication backend
- */
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [patient, setPatient] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  /**
-   * Mock login - replace with actual auth API call
-   * @param {string} email - Patient email
-   * @param {string} password - Patient password
-   */
-  const login = async (email, password) => {
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const signInWithGoogle = async (role) => {
     setLoading(true);
     setError(null);
     try {
-      // TODO: Replace with actual API call
-      // const response = await fetch(`${API_BASE_URL}/auth/login`, { ... });
-      // const data = response.json();
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      const userRef = doc(db, `${role}s`, user.uid);
+      const userDoc = await getDoc(userRef);
 
-      // Mock response
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      const mockPatient = {
-        id: `patient-${Date.now()}`,
-        email,
-        name: email.split("@")[0],
-        createdAt: new Date().toISOString(),
-      };
-
-      setPatient(mockPatient);
-      localStorage.setItem("patient", JSON.stringify(mockPatient));
-      return { success: true, patient: mockPatient };
-    } catch (err) {
-      setError(err.message);
-      return { success: false, error: err.message };
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  /**
-   * Mock signup
-   */
-  const signup = async (email, password, name) => {
-    setLoading(true);
-    setError(null);
-    try {
-      // TODO: Replace with actual API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      const mockPatient = {
-        id: `patient-${Date.now()}`,
-        email,
-        name,
-        createdAt: new Date().toISOString(),
-      };
-
-      setPatient(mockPatient);
-      localStorage.setItem("patient", JSON.stringify(mockPatient));
-      return { success: true, patient: mockPatient };
-    } catch (err) {
-      setError(err.message);
-      return { success: false, error: err.message };
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const logout = () => {
-    setPatient(null);
-    localStorage.removeItem("patient");
-  };
-
-  /**
-   * Restore patient session from localStorage on app load
-   */
-  const restoreSession = () => {
-    const stored = localStorage.getItem("patient");
-    if (stored) {
-      try {
-        setPatient(JSON.parse(stored));
-      } catch (err) {
-        console.error("Error restoring session:", err);
+      if (!userDoc.exists()) {
+        await setDoc(userRef, {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          createdAt: new Date().toISOString(),
+        });
       }
+      return { success: true, user, role };
+    } catch (err) {
+      setError(err.message);
+      return { success: false, error: err.message };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const logout = async () => {
+    setLoading(true);
+    try {
+      await signOut(auth);
+      setUser(null);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <AuthContext.Provider
       value={{
-        patient,
+        user,
         loading,
         error,
-        login,
-        signup,
+        signInWithGoogle,
         logout,
-        restoreSession,
-        isAuthenticated: !!patient,
-      }}>
+        isAuthenticated: !!user,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 }
 
 export function useAuth() {
+// ... existing code ...
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("useAuth must be used within AuthProvider");
