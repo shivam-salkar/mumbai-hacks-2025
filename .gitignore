@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+dist/
+.env
+.env.local
+.parcel-cache/
+coverage/
+*.log
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
