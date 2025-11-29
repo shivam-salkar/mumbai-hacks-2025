@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Stethoscope, User } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function SplitSection({ isActive, sectionRef }) {
   const [hovered, setHovered] = useState(null);
@@ -56,14 +57,17 @@ export default function SplitSection({ isActive, sectionRef }) {
             }`}>
             Join our network of expert healers.
           </p>
-          <button
-            className={`mt-4 md:mt-6 px-6 py-2 border border-white/30 rounded-full text-white text-sm md:text-base hover:bg-white hover:text-green-900 transition-all duration-500 ${
-              hovered === "left"
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-4"
-            }`}>
-            Login Portal
-          </button>
+
+          <Link to="/dashboard_practitioner">
+            <button
+              className={`mt-4 md:mt-6 px-6 py-2 border border-white/30 rounded-full text-white text-sm md:text-base hover:bg-white hover:text-green-900 transition-all duration-500 ${
+                hovered === "left"
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}>
+              Login Portal
+            </button>
+          </Link>
         </div>
       </article>
 
@@ -93,14 +97,17 @@ export default function SplitSection({ isActive, sectionRef }) {
             }`}>
             Begin your journey to wellness.
           </p>
-          <button
-            className={`mt-4 md:mt-6 px-6 py-2 border border-white/30 rounded-full text-white text-sm md:text-base hover:bg-white hover:text-green-900 transition-all duration-500 ${
-              hovered === "right"
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-4"
-            }`}>
-            Book Session
-          </button>
+
+          <Link to="/dashboard_patient">
+            <button
+              className={`mt-4 md:mt-6 px-6 py-2 border border-white/30 rounded-full text-white text-sm md:text-base hover:bg-white hover:text-green-900 transition-all duration-500 ${
+                hovered === "right"
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}>
+              Book Session
+            </button>
+          </Link>
         </div>
       </article>
 
