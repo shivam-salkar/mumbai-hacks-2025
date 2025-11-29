@@ -1,15 +1,6 @@
-import { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Calendar,
-  Heart,
-  MessageCircle,
-  Settings,
-  LogOut,
-  Plus,
-  Zap,
-} from "lucide-react";
+import { LogOut } from "lucide-react";
 import PatientNav from "../components/dashboard/PatientNav";
 import AppointmentsSection from "../components/dashboard/AppointmentsSection";
 import BookTherapySection from "../components/dashboard/BookTherapySection";
@@ -17,32 +8,18 @@ import AISymptomChecker from "../components/dashboard/AISymptomChecker";
 import HealthMetrics from "../components/dashboard/HealthMetrics";
 import CustomCursor from "../components/CustomCursor";
 
+// Mock patient data - replace with actual data source when needed
+const mockPatient = {
+  name: "Patient",
+  email: "patient@example.com",
+};
+
 export default function PatientDashboard() {
-  const { patient, logout, isAuthenticated, restoreSession } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("appointments");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    restoreSession();
-    if (!isAuthenticated && !patient) {
-      navigate("/login/patient");
-    }
-  }, []);
-
-  if (!patient) {
-    return (
-      <div className="w-full h-screen bg-black flex items-center justify-center">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500 mb-4" />
-          <p className="text-gray-400">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
   const handleLogout = () => {
-    logout();
     navigate("/");
   };
 
@@ -56,7 +33,7 @@ export default function PatientDashboard() {
           setActiveTab={setActiveTab}
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
-          patient={patient}
+          patient={mockPatient}
         />
 
         {/* Main Content */}
@@ -71,7 +48,7 @@ export default function PatientDashboard() {
                 {activeTab === "health" && "Health Metrics"}
               </h1>
               <p className="text-green-400/60 text-sm mt-1">
-                Welcome back, {patient.name}
+                Welcome back, {mockPatient.name}
               </p>
             </div>
 
