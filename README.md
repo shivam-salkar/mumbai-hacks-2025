@@ -1,174 +1,105 @@
+<div align="center">
 
-# Soujanya — Panchakarma Therapy Booking (MVP)
+  <a href="#">
+    <img src="https://img.shields.io/badge/Status-MVP_Complete-success?style=for-the-badge&logo=adguard&logoColor=white" alt="Status MVP" />
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/Hackathon-Mumbai_Hacks-8A2BE2?style=for-the-badge&logo=rocket&logoColor=white" alt="Mumbai Hacks" />
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge&logo=git&logoColor=white" alt="License MIT" />
+  </a>
 
-Soujanya is a lightweight, beautiful single-page React application built as a hackathon MVP to showcase an Ayurvedic Panchakarma therapy booking experience. The UI focuses on immersive visuals, smooth micro-interactions, and a simple booking flow that can be connected to a backend service.
+  <br />
+  <br />
 
-Key principles: elegant, dark-themed design; minimal, readable components; mobile-first progressive interactions.
+  <img src="demo/soujanya-landing-page.jpg" alt="Soujanya Banner" width="100%" style="border-radius: 10px; box-shadow: 0px 4px 20px rgba(0,0,0,0.5);" />
 
----
+  <br />
 
-## Demo & Media
+  <h1 style="font-size: 3rem; margin-bottom: -10px;">SOUJANYA</h1>
+  <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=25&pause=1000&color=2DD4BF&center=true&vCenter=true&width=500&lines=Ayurvedic+Healing+Reimagined.;Immersive+Panchakarma+Booking.;AI-Powered+Symptom+Analysis.;Built+in+24+Hours." alt="Typing SVG" /></a>
 
-- Screenshot / GIF: (attach under `./assets/screenshots/`)
-- Demo video: (attach and link here)
+  <p align="center">
+    <b>Lightweight. Immersive. Modern.</b><br />
+    A minimalist solution orchestrating the Panchakarma therapy experience.
+  </p>
 
-Placeholder for images:
-
-![Screenshot placeholder](./assets/screenshots/hero.png)
-
----
-
-## TL;DR
-
-- Tech: React + Vite + Tailwind CSS + Framer Motion + lucide-react
-- Pages: Home, Patient Login, Practitioner Login, Patient Dashboard
-- Core features: browse therapies, AI symptom assistant (client + API stub), book appointment flow (date/time selection + availability check), appointments management, health metrics tracker.
-
-This project was implemented as a hackathon prototype in 18 hours for the event **Mumbai Hacks** by: Samarjeet Singh, Shivam Salkar, Aryan Darekar.
-
----
-
-## Features
-
-- Landing experience with parallax, ambient background and custom cursor
-- Therapies catalog with lightweight cards and smooth transitions
-- Patient Dashboard
-	- View upcoming / past / cancelled appointments
-	- Book therapy with date/time selection and availability checks (API stubs)
-	- AI symptom checker (client + API stub to demonstrate flow)
-	- Health metrics and therapy progress notes
-- Simple auth context (client-only mock for demo) and routing
-- Clean component structure and service layer ready for backend integration
+</div>
 
 ---
 
-## Suggested free APIs for integrations (MVP helpers)
+## ⚡ The 24-Hour Vision (Hackathon Context)
 
-These are optional services you can plug into the backend when implementing server-side features:
+> **"We didn't just want to build a form; we wanted to build an atmosphere."**
 
-- AI recommendations: Hugging Face Inference API (free tier) or OpenAI (paid) for NLP-based symptom analysis. Use small text-generation models for lightweight inference.
-- Calendar & availability: use Google Calendar API or a simple Firebase/Firestore schedule store for practitioner availability.
-- Email / notifications: SendGrid (free tier) or Mailgun for booking confirmations.
+**Soujanya** was conceptualized and engineered during a rapid **18-hour sprint** for **Mumbai Hacks**. While this release is an MVP, the architecture is designed for scalability. We focused on "Progressive Disclosure", showing the user only what they need, when they need it.
 
-Note: The frontend includes API client stubs in `frontend/services/api.js` that you can replace with real endpoints.
-
----
-
-## Local development
-
-Prerequisites: Node.js (16+) and npm.
-
-1. Install dependencies
-
-```bash
-npm install
-```
-
-2. Run dev server
-
-```bash
-npm run dev
-```
-
-3. Build for production
-
-```bash
-npm run build
-npm run preview
-```
-
-If PostCSS/Tailwind throws errors during install, try a clean reinstall:
-
-```powershell
-# from project root (Windows PowerShell)
-Remove-Item -Recurse -Force .\node_modules
-Remove-Item -Force .\package-lock.json
-npm cache clean --force
-npm install
-```
+| Timeline | Milestone | Status |
+| :--- | :--- | :--- |
+| **0-6 hrs** | UI/UX Design & Component Architecture | ✅ |
+| **6-12 hrs** | React Logic, Routing & Auth Context | ✅ |
+| **12-18 hrs** | AI Integration (Stubs) & Micro-interactions | ✅ |
+| **Future** | Backend Integration & Payment Gateways | ⏳ |
 
 ---
 
-## Project structure (important files)
+## 🎨 Tech Stack
 
-```
-index.html
-package.json
-vite.config.js
-tailwind.config.js
-postcss.config.js
-frontend/
-	├─ main.jsx             # app entry
-	├─ App.jsx              # routes + auth provider
-	├─ index.css            # global styles + font
-	├─ pages/
-	|   ├─ Home.jsx
-	|   ├─ patient_login.jsx
-	|   ├─ practioner_login.jsx
-	|   └─ PatientDashboard.jsx
-	├─ components/         # UI building blocks (Hero, Therapies, SplitSection...)
-	├─ context/            # AuthContext (client-side mock)
-	└─ services/           # api.js (stubs), BookingService.js
-```
+We leveraged a modern, performance-first stack to ensure 60fps animations and instant load times.
+
+<div align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=react,vite,tailwind,js,git,vscode,figma&theme=dark" />
+  </a>
+</div>
+
+- **Frontend:** React + Vite
+- **Styling:** Tailwind CSS + PostCSS
+- **Animations:** Framer Motion
+- **Icons:** Lucide-react
+- **Architecture:** Component-based, Service-layer pattern
 
 ---
 
-## How buttons & flows are wired
+## 🔮 Key Features
 
-- Home CTA buttons route to login or dashboard pages via `react-router-dom`.
-- The booking flow is implemented in `components/dashboard/BookTherapySection.jsx` and uses `services/api.js` stubs:
-	- `checkPractitionerAvailability(therapyId, date)` → returns mock slots
-	- `bookAppointment(bookingData)` → returns a mock confirmed appointment
-- App-level auth state (mock) is in `frontend/context/AuthContext.jsx` and protects the dashboard route.
+### 🩺 For the Patient
+- **Ambient Landing Experience:** Parallax effects, custom cursors, and dark-themed visuals to induce calmness.
+- **AI Symptom Assistant:** A dedicated interface demonstrating how NLP can guide patients to the right therapy (Client + API stub).
+- **Seamless Booking:** Date/Time selection with immediate availability checks.
+- **Health Metrics:** Visualize therapy progress and vital stats.
 
----
-
-## Extending with a backend
-
-Recommended minimal endpoints the backend should provide:
-
-- `POST /api/auth/login` and `POST /api/auth/signup` — authenticate users and return a token
-- `GET /api/therapies` — list therapies
-- `POST /api/practitioners/availability` — return available slots for therapy + date
-- `POST /api/appointments` — create appointment (and return confirmation)
-- `GET /api/patients/:id/appointments` — list patient's appointments
-
-Plug these endpoints into `frontend/services/api.js` — the file contains TODOs and mock implementations to guide you.
+### 🛠️ Technical Highlights
+- **Service Layer Abstraction:** All API calls are centralized in `services/api.js` for easy swap-out.
+- **Mock Auth Context:** A client-side demonstration of secure route protection.
+- **Responsive Design:** Mobile-first approach ensuring the app feels native on phones.
 
 ---
 
-## Roadmap / Ideas
+## 📸 Demo & Screenshots
 
-- Practitioner dashboard + schedule management (admin view)
-- Real AI model orchestration (secure server-side calls to OpenAI/HF)
-- Payment integration (Stripe) and refunds
-- SMS & push notifications for reminders
-- Multi-language support (i18n)
+| Landing Page | Booking Flow |
+| :---: | :---: |
+| <img src="demo/soujanya-landing-page.jpg" width="100%" /> | <img src="demo/soujanya-booking-ui.jpg" width="100%" /> |
 
----
-
-## Contribution
-
-This repository was created as a hackathon prototype. If you want to contribute features, please open an issue or a PR and describe the intended change. Keep changes scoped to single features and include a short test or instruction to verify.
+| AI Assistant | Practitioner Dashboard |
+| :---: | :---: |
+| <img src="demo/soujanya-ai-assistant.jpg" width="100%" /> | <img src="demo/soujanya-practitioner-dashboard.jpg" width="100%" /> |
 
 ---
 
-## License
+## 🧩 Architecture & Data Flow
 
-This repository does not include a license file by default. If you want to open-source it, consider adding an `LICENSE` (MIT or Apache-2.0).
+We used a modular architecture to separate UI from logic. Here is how the Booking Flow operates under the hood:
 
----
-
-## Hackathon credit
-
-Built for Mumbai Hacks in a rapid 18-hour sprint by:
-
-- Samarjeet Singh
-- Shivam Salkar
-- Aryan Darekar
-
----
-
-If you want, I can also add a short `CONTRIBUTING.md`, or scaffold a simple Express backend with these endpoints and a SQLite file to prototype the backend quickly.
-
-
+```mermaid
+graph LR
+    A[User Selects Therapy] --> B{Check Auth};
+    B -- No --> C[Login Page];
+    B -- Yes --> D[Booking Component];
+    D --> E[Check Availability];
+    E -- API Stub --> F[Mock Slots];
+    F --> D;
+    D --> G[Confirm Booking];
+    G -- POST --> H[Update Dashboard];
