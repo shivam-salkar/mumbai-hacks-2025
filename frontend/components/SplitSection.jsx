@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Stethoscope, User } from "lucide-react";
 
-export default function SplitSection({ isActive }) {
+export default function SplitSection({ isActive, sectionRef }) {
   const [hovered, setHovered] = useState(null);
 
   const buildClasses = (side) => {
@@ -27,7 +27,9 @@ export default function SplitSection({ isActive }) {
   }, [isActive]);
 
   return (
-    <section className="relative w-full h-screen snap-start flex flex-col md:flex-row overflow-hidden bg-black transition-opacity duration-700">
+    <section
+      ref={sectionRef}
+      className="relative w-full h-screen snap-start flex flex-col md:flex-row overflow-hidden bg-black transition-opacity duration-700">
       <article
         className={`relative transition-all duration-700 ease-in-out cursor-pointer flex items-center justify-center overflow-hidden border-b md:border-b-0 md:border-r border-white/10 ${buildClasses(
           "left"

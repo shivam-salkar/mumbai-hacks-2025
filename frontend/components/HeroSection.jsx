@@ -3,7 +3,7 @@ import { ArrowRight, Leaf, Sprout } from "lucide-react";
 import useMousePosition from "../hooks/useMousePosition";
 import AmbientBackground from "./AmbientBackground";
 
-export default function HeroSection({ isActive }) {
+export default function HeroSection({ isActive, onBeginJourney }) {
   const { x, y } = useMousePosition();
 
   const transformStyle = useMemo(() => {
@@ -54,7 +54,9 @@ export default function HeroSection({ isActive }) {
             science and holistic healing therapies.
           </p>
 
-          <button className="group relative px-6 md:px-8 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full transition-all duration-300 overflow-hidden">
+          <button
+            onClick={onBeginJourney}
+            className="group relative px-6 md:px-8 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full transition-all duration-300 overflow-hidden">
             <span className="relative z-10 flex items-center gap-2 text-sm md:text-base">
               Begin Journey{" "}
               <ArrowRight

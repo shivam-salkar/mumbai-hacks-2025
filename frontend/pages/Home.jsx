@@ -12,6 +12,7 @@ const TOTAL_SECTIONS = 5;
 export default function Home() {
   const [activeSection, setActiveSection] = useState(0);
   const containerRef = useRef(null);
+  const splitSectionRef = useRef(null);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -28,6 +29,16 @@ export default function Home() {
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleBeginJourney = () => {
+    const container = containerRef.current;
+    const target = splitSectionRef.current;
+    if (!container || !target) return;
+    container.scrollTo({
+      top: target.offsetTop,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="font-sans bg-black text-white selection:bg-green-500 selection:text-white overflow-hidden">
       <CustomCursor />
@@ -38,9 +49,9 @@ export default function Home() {
         ref={containerRef}
         className="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth"
       >
-        <HeroSection isActive={activeSection === 0} />
+        <HeroSection isActive={activeSection === 0} onBeginJourney={handleBeginJourney} />
         <TherapiesSection isActive={activeSection === 1} />
-        <SplitSection isActive={activeSection === 2} />
+        <SplitSection isActive={activeSection === 2} sectionRef={splitSectionRef} />
         <ReviewsSection isActive={activeSection === 3} />
         <FooterSection isActive={activeSection === 4} />
       </main>
