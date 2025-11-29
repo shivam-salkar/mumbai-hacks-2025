@@ -22,7 +22,7 @@ export default function FooterSection({ isActive }) {
 
         <div className="max-w-2xl mx-auto px-6 text-gray-500 font-light text-xs md:text-sm">
           <p className="mb-4">
-            123 Herb Garden Avenue, Wellness District, Kerala, India 682001
+            Powered by React.
           </p>
           <p>
             © {new Date().getFullYear()} Soujanya Ayurveda. All rights reserved.
